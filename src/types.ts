@@ -15,4 +15,5 @@ export interface Data {
   isGameStarted: boolean;
   keyboardEventHandler: KeyboardEventListener | null;
   interval: number | null;
+  points: number;
 }

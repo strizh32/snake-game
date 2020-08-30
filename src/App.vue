@@ -1,27 +1,36 @@
 <template lang="pug">
     #app.app(:class="rootClasses")
+        h1.title Snake Game
         .cells
-            .row(v-for="(row, yPos) in cells")
-                .cell(
-                    v-for="(cell, xPos) in row"
-                    :class="getCellClasses([xPos, yPos])"
-                    :data-xPos="xPos"
-                    :data-yPos="yPos"
-                )
+            .rows
+                .row(v-for="(row, yPos) in cells")
+                    .cell(
+                        v-for="(cell, xPos) in row"
+                        :class="getCellClasses([xPos, yPos])"
+                        :data-xPos="xPos"
+                        :data-yPos="yPos"
+                    )
             .game-over-bg(v-if="isGameOver")
-                button
-                    span(@click="restartGame") Начать заново
-        .buttons
-            button
-                span(v-if="isGameStarted" @click="restartGame") Начать заново
-                span(v-else @click="startGame") Начать игру
-            button(@click="pauseGame" v-if="isGameStarted")
-                span(v-if="isGamePaused") Продолжить игру
-                span(v-else) Пауза
+                button.button.is-warning
+                    span(@click="restartGame") Restart
+            .controls
+                .speed-controls
+                    button.button.is-success(@click="speedUp") Speed Up
+                    .speed {{ speed }}
+                    button.button.is-info(@click="speedDown") Speed Down
+                .points.is-size-2.has-text-weight-bold Points: {{ points }}
+        .buttons.is-centered(v-if="!isGameOver")
+            button.button.is-large(@click="clickStartGame")
+                span(v-if="isGameStarted") Restart
+                span(v-else) Start
+            button.button.is-info.is-light(@click="pauseGame" v-if="isGameStarted")
+                span(v-if="isGamePaused") Continue
+                span(v-else) Pause
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import "bulma/css/bulma.css";
 import { Data, Coordinate } from "@/types";
 import {
   isCoordsEqual,
@@ -31,9 +40,10 @@ import {
 } from "@/functions";
 
 /**
- * Game field will be size X size
+ * Game field will be 'size' X 'size'
+ * For example, 15 x 15 cells
  */
-const size = 20;
+const size = 15;
 
 export default Vue.extend({
   name: "App",
@@ -45,6 +55,14 @@ export default Vue.extend({
       };
     }
   },
+  watch: {
+    speed(newSpeed: number) {
+      if (this.interval) {
+        clearInterval(this.interval);
+        this.interval = setInterval(this.move, 1000 / newSpeed);
+      }
+    }
+  },
   methods: {
     getCellClasses(coord: Coordinate): Record<string, boolean> {
       return {
@@ -52,6 +70,19 @@ export default Vue.extend({
         contained: isArrayContainsCoord(this.snakeCoordinates, coord),
         apple: isCoordsEqual(coord, this.appleCoordinate)
       };
+    },
+    speedUp(): void {
+      if (this.speed < 60) {
+        this.speed++;
+      }
+    },
+    speedDown(): void {
+      if (this.speed > 1) {
+        this.speed--;
+      }
+    },
+    addPoints() {
+      this.points += this.speed * 100;
     },
     move(): void {
       if (this.isGamePaused) return;
@@ -104,6 +135,7 @@ export default Vue.extend({
         this.snakeCoordinates.unshift(nextCell);
         if (isCoordsEqual(nextCell, this.appleCoordinate)) {
           this.spawnNewApple();
+          this.addPoints();
         } else {
           this.snakeCoordinates.pop();
         }
@@ -180,6 +212,9 @@ export default Vue.extend({
           window.addEventListener("keyup", this.keyboardEventHandler, false);
         }
       });
+    },
+    clickStartGame(): void {
+      this.isGameStarted ? this.restartGame() : this.startGame();
     }
   },
   destroyed() {

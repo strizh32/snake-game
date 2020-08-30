@@ -1,10 +1,18 @@
 $border-color: #bbb;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(249, 246, 246);
+  min-height: 100vh;
+}
+
 .app {
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  text-align: center;
 }
 
 .row {
@@ -18,6 +26,7 @@ $border-color: #bbb;
   border: 1px solid $border-color;
   display: inline-block;
   position: relative;
+  margin: 15px;
 }
 
 .cell {
@@ -66,4 +75,22 @@ $border-color: #bbb;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.controls {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 30px);
+}
+
+.speed-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.speed {
+  font-weight: bold;
+  font-size: 28px;
+  width: 80px;
 }

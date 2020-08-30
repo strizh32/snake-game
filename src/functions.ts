@@ -50,6 +50,7 @@ export function getInitialData(size: number): Data {
     isGamePaused: false,
     isGameStarted: false,
     keyboardEventHandler: null,
-    interval: null
+    interval: null,
+    points: 0
   };
 }
