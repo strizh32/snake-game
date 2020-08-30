@@ -27,3 +27,8 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### DEMO
+https://strizh32.github.io/snake-game/
+[![DEMO](https://media.giphy.com/media/QVZoo2l1jg78Doa4PX/giphy.gif)](https://strizh32.github.io/snake-game/)
+
