@@ -1,0 +1,69 @@
+$border-color: #bbb;
+.app {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+.row {
+  font-size: 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+.cells {
+  border: 1px solid $border-color;
+  display: inline-block;
+  position: relative;
+}
+
+.cell {
+  background: white;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 0;
+  transition: background-color 150ms;
+  &:not(:last-child) {
+    border-right: 1px solid $border-color;
+  }
+  &.contained {
+    background: orange;
+    transition: none;
+  }
+  &.leading {
+    $b-rad: 12px;
+    background: green;
+    transition: none;
+    .direction-up & {
+      border-radius: $b-rad $b-rad 0 0;
+    }
+    .direction-down & {
+      border-radius: 0 0 $b-rad $b-rad;
+    }
+    .direction-right & {
+      border-radius: 0 $b-rad $b-rad 0;
+    }
+    .direction-left & {
+      border-radius: $b-rad 0 0 $b-rad;
+    }
+  }
+  &.apple {
+    background: red;
+  }
+}
+
+.game-over-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
