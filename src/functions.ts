@@ -22,7 +22,10 @@ export function getRandomCoordinate(
   const randX = min - 0.5 + Math.random() * (max - min + 1);
   const randY = min - 0.5 + Math.random() * (max - min + 1);
   const result: Coordinate = [Math.round(randX), Math.round(randY)];
-  if (excludedCoordinates.length && excludedCoordinates.includes(result)) {
+  if (
+    excludedCoordinates.length &&
+    isArrayContainsCoord(excludedCoordinates, result)
+  ) {
     return getRandomCoordinate(min, max, excludedCoordinates);
   } else {
     return result;
