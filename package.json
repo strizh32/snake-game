@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -31,6 +31,7 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",
+    "vue-cli-plugin-pug": "~1.0.7",
     "vue-template-compiler": "^2.6.11"
   }
 }
