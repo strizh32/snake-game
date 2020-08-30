@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint --fix"
+    "lint": "vue-cli-service lint --fix",
+    "deploy": "yarn && yarn build && git subtree push --prefix dist origin gh-pages"
   },
   "lint-staged": {
     "src/**/*.{js,ts,scss,vue}": "yarn lint"
