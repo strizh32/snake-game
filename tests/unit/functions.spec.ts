@@ -19,7 +19,7 @@ describe("Test functions", () => {
       [0, 2],
       [11, 12],
       [20, 30],
-      [10, 30],
+      [10, 30]
     ];
 
     const coord1: Coordinate = [0, 1];
